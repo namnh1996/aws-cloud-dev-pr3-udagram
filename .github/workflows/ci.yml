@@ -4,19 +4,23 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
-
-
-    steps:
-    - uses: actions/checkout@v3
-    - run: echo "Hello form Nam Nguyen"
-    - run: ls -l
-
+        steps:
+            - uses: actions/checkout@v3
+            - run: docker-compose -f docker-compose-build.yaml build --parallel
+            - run: docker tag udagram-frontend:local namdev96/udagram-frontend:v1
+            - run: docker tag udagram-api-user namdev96/udagram-api-user:v1
+            - run: docker tag udagram-feed namdev96/udagram-feed:v1
+            - run: docker tag udagram-reverseproxy namdev96/udagram-reverseproxy:v1
+            - run: docker push namdev96/udagram-frontend:v1
+            - run: docker push namdev96/udagram-api-user:v1
+            - run: docker push namdev96/udagram-feed:v1
+            - run: docker push namdev96/udagram-reverseproxy:v1
