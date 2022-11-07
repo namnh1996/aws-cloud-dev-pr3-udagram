@@ -7,7 +7,7 @@ import {
 } from "@angular/forms";
 import { AuthService } from "../services/auth.service";
 import { User } from "../models/user.model";
-import { ModalController, IonicModule } from "@ionic/angular";
+import { ModalController } from "@ionic/angular";
 
 @Component({
 	selector: "app-auth-register",
